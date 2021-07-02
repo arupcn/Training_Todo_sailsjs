@@ -7,18 +7,23 @@
 
 module.exports = {
     signup: (req, res) => {
+      try {
         const name = req.body.name;
         const email = req.body.email;
         const password = req.body.password;
         User.create({ name: name, email: email,password:password }).exec((err) => {
           if (err) {
-            res.send(500, { 'err': err });
+            console.log(err);
           }
           res.redirect('/');
         });
+      } catch (error) {
+        console.log(error)
+      }
       },
 
     login: (req, res) => {
+      try {
         const email = req.body.email;
         const password = req.body.password;
         User.findOne({ email: email,password:password}).exec((err, data) => {
@@ -33,6 +38,10 @@ module.exports = {
           req.session.user.expires = new Date(Date.now() + 3 * 24 * 3600 * 1000);
           res.redirect('/todo');
         });
+      } catch (error) {
+        console.log(error)
+      }
+     
       },
 
  

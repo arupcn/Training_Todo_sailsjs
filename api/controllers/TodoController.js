@@ -55,62 +55,86 @@ function sendEmail(titles,body){
 
 module.exports = {
   list: (req, res) => {
-    userId = req.session.user.id
-    emailId = req.session.user.email
-    // schedular(req.session.user.id);
-    Todo.find({ user_id: req.session.user.id }).exec((err, data) => {
-      if (err) {
-        res.send(500, { 'err': err });
-      }
-      res.view('todoList/todo', { data: data });
-    });
+    try {
+      userId = req.session.user.id
+      emailId = req.session.user.email
+      // schedular(req.session.user.id);
+      Todo.find({ user_id: req.session.user.id }).exec((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+        res.view('todoList/todo', { data: data });
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  
   },
 
   add: (req, res) => {
-    const titles = req.body.title;
-    const body = req.body.task;
-    const date = req.body.date;
-    const time = req.body.time;
-    const userId = req.session.user.id;
-    // let date1 = new Date(date)
-    // console.log(date1.toLocaleDateString().split('/').join('-') ,"============",time);
-    Todo.create({ titles: titles, body: body,date:date,time:time,user_id : userId }).exec((err) => {
-      if (err) {
-        res.send(500, { 'err': err });
-      }
-      res.redirect('/todo');
-    });
+    try {
+      const titles = req.body.title;
+      const body = req.body.task;
+      const date = req.body.date;
+      const time = req.body.time;
+      const userId = req.session.user.id;
+      // let date1 = new Date(date)
+      // console.log(date1.toLocaleDateString().split('/').join('-') ,"============",time);
+      Todo.create({ titles: titles, body: body,date:date,time:time,user_id : userId }).exec((err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect('/todo');
+      });
+    } catch (error) {
+      console.log(error)
+    }
+ 
   },
 
   edit: (req, res) => {
-    Todo.findOne({ id: req.params.id }).exec((err, data) => {
-      if (err) {
-        res.send(500, { 'err': err });
-      }
-      res.view('todoList/edit', { data: data });
-    });
+    try {
+      Todo.findOne({ id: req.params.id }).exec((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+        res.view('todoList/edit', { data: data });
+      });
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   delete: (req, res) => {
-    Todo.destroy({ id: req.params.id }).exec((err) => {
-      if (err) {
-        res.send(500, { 'err': err });
-      }
-      res.redirect('/todo');
-    });
+    try {
+      Todo.destroy({ id: req.params.id }).exec((err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect('/todo');
+      });
+    } catch (error) {
+      console.log(error)
+    }
+   
   },
 
   update: (req, res) => {
-    const titles = req.body.title;
-    const body = req.body.task;
-    const date = req.body.date;
-    const time = req.body.time;
-    Todo.update({ _id: req.params.id }, { titles: titles, body: body,date:date,time:time }).exec((err) => {
-      if (err) {
-        res.send(500, { 'err': err });
-      }
-      res.redirect('/todo');
-    });
+    try {
+      const titles = req.body.title;
+      const body = req.body.task;
+      const date = req.body.date;
+      const time = req.body.time;
+      Todo.update({ _id: req.params.id }, { titles: titles, body: body,date:date,time:time }).exec((err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect('/todo');
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  
   },
 
   logout: (req,res)=>{
