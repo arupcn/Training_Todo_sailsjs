@@ -1,0 +1,57 @@
+<h1>Hello arup</h1>  
+<div style="float:right">
+      <label class="logoutLblPos">
+        <a href="/user/logout">Logout</a>
+      </label>
+    </div>
+<form action="/todo/add" method="POST">
+  <div class="input-field col s12 l6">
+    <input type="text" id="first_name" class="validate" name="title" placeholder="Title" required>
+    <label for="first_name">Title</label>
+  </div>
+  <div class="input-field col s12">
+    <textarea id="textarea1" class="materialize-textarea validate" name="task" placeholder="Task" required></textarea>
+    <label for="textarea1">Task</label>
+    <input type="date" class="datepicker" name="date" required />
+      <input type="text" class="timepicker" name="time" placeholder="Set Time" required>
+  </div>
+  <div class="col s12">
+      <button class="btn waves-effect waves-light" type="submit" name="submit">
+          <i class="material-icons ">Add Task</i>
+      </button>
+      
+  </div>
+  
+  <!-- <button>Click me<br/>to show date picker</button> -->
+</form>
+<table class="striped">
+    <thead>
+        <tr>
+            <th data-field="id">Title</th>
+            <th data-field="name">Task</th>
+            <th data-field="date">Date</th>
+            <th data-field="time">Time</th>
+            <th data-field="action">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(function(dataList){%>
+            <tr>
+                <td><%= dataList.titles %></td>
+                <td><%= dataList.body %></td>
+                <td><%= dataList.date %></td>
+                <td><%= dataList.time %></td>
+                <td><a href="/todo/edit/<%= dataList.id %>">Edit</a> | <a href="/todo/delete/<%= dataList.id %>">Delete</a> </td>
+            </tr>
+        <%})%>
+        
+    </tbody>
+</table>
+
+<script>
+    setTimeout(() => {
+        $(document).ready(function(){
+            $('.timepicker').timepicker();
+          });
+      }, 1000);
+</script>
