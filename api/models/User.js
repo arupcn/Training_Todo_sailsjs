@@ -9,16 +9,33 @@ module.exports = {
 
   attributes: {
     name :{
-      type:'string'
+      type:'string',
+      required: true
     },
     email:{
-      type:'string'
+      type:'string',
+      required: true,
+      unique: true
     },
     password:{
-      type:'string'
+      type:'string',
+      required: true,
     },
 
   },
+  validationMessages: { //hand for i18n & l10n
+    email: {
+        required: 'Email is required',
+        email: 'Provide valid email address',
+        unique: 'Email address is already taken'
+    },
+    name: {
+        required: 'Username is required'
+    },
+    password: {
+        required: 'Username is required'
+    }
+},
   datastore: "mongodb"
 
 };
